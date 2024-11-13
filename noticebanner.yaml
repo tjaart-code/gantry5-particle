@@ -1,0 +1,28 @@
+name: Notice Banner
+description: Display a custom notice banner with a close button.
+type: particle
+
+form:
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      description: Toggle the particle on or off.
+      default: true
+
+    content:
+      type: textarea.textarea
+      label: Notice Content
+      description: Enter the text to display in the banner.
+
+    background:
+      type: input.colorpicker
+      label: Background Color
+      description: Set the background color of the banner.
+      default: '#ffcc00'
+
+    text_color:
+      type: input.colorpicker
+      label: Text Color
+      description: Set the text color of the banner.
+      default: '#333333'

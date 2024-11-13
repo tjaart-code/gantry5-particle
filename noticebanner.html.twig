@@ -1,0 +1,19 @@
+{% if particle.enabled %}
+<div id="notice-banner" style="display: none; background-color: {{ particle.background }}; color: {{ particle.text_color }}; padding: 15px; position: relative; width: 100%;">
+    <span>{{ particle.content | raw }}</span>
+    <button id="close-notice" style="position: absolute; top: 5px; right: 10px; background: none; border: none; font-size: 18px; cursor: pointer; color: {{ particle.text_color }};">
+        &times;
+    </button>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const banner = document.getElementById("notice-banner");
+        banner.style.display = "block";  // Show the banner on page load
+
+        document.getElementById("close-notice").onclick = function() {
+            banner.style.display = "none";  // Hide the banner on close
+        };
+    });
+</script>
+{% endif %}
