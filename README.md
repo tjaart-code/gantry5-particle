@@ -1,5 +1,5 @@
 # Gantry 5 Particle
-Notice Banner Particle.
+Notice Banner Particle with close button.
 
 Backend view:
 
