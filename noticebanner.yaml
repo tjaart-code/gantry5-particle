@@ -13,7 +13,13 @@ form:
     content:
       type: textarea.textarea
       label: Notice Content
-      description: Enter the text to display in the banner.
+      description: Enter the text to display in the banner. HTML is allowed.
+
+    close_label:
+      type: input.text
+      label: Close Button Label
+      description: Accessible label for the close button (used by screen readers).
+      default: 'Close notice'
 
     background:
       type: input.colorpicker
@@ -24,5 +30,5 @@ form:
     text_color:
       type: input.colorpicker
       label: Text Color
-      description: Set the text color of the banner.
+      description: Set the text color of the banner and close button.
       default: '#333333'
