@@ -13,7 +13,7 @@ form:
     content:
       type: textarea.textarea
       label: Notice Content
-      description: Enter the text to display in the banner. HTML is allowed.
+      description: Enter the text to display in the banner. HTML is allowed. **Warning: Ensure content is from trusted sources only to prevent XSS vulnerabilities.**
 
     close_label:
       type: input.text
