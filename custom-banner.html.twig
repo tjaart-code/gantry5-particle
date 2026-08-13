@@ -1,0 +1,100 @@
+{% set banner_id = 'g-custom-banner-' ~ (id is defined ? id : '1') %}
+{% set extra_class = particle.class is defined ? particle.class : '' %}
+{% set autohide_val = particle.autohide is defined and particle.autohide ? 'true' : 'false' %}
+{% set key_val = particle.cookie_key is defined and particle.cookie_key ? particle.cookie_key : 'gantry_banner_closed' %}
+
+<div id="{{ banner_id }}" 
+     class="g-particle g-custom-banner {{ extra_class|e('html_attr') }}" 
+     data-banner-id="{{ key_val|e('html_attr') }}"
+     data-autohide="{{ autohide_val }}">
+    
+    <div class="g-custom-banner-content">
+        {% if particle.title is defined and particle.title is not empty %}
+            <h4 class="g-custom-banner-title">{{ particle.title }}</h4>
+        {% endif %}
+        {% if particle.content is defined and particle.content is not empty %}
+            <div class="g-custom-banner-body">
+                {{ particle.content|raw }}
+            </div>
+        {% endif %}
+    </div>
+    
+    <button type="button" 
+            class="g-custom-banner-close" 
+            aria-label="{{ (particle.button_text is defined and particle.button_text ? particle.button_text : 'Close')|e('html_attr') }}">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<style>
+/* Reset outer Gantry container margins and padding for flush edges */
+.g-block:has(#{{ banner_id }}),
+.g-content:has(#{{ banner_id }}) {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+}
+
+.g-custom-banner {
+    position: relative;
+    margin: 0 !important;
+    padding: 1rem 2.5rem 1rem 1rem !important; /* Inner content breathing room */
+}
+
+/* Flush top-right close button positioning */
+#{{ banner_id }} .g-custom-banner-close {
+    position: absolute !important;
+    top: 0.25rem !important;
+    right: 0.5rem !important;
+    background: transparent !important;
+    border: none !important;
+    font-size: 1.5rem !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    color: inherit !important;
+    opacity: 0.7;
+    padding: 0.25rem 0.5rem !important;
+    margin: 0 !important;
+    z-index: 10;
+    transition: opacity 0.2s ease;
+}
+
+#{{ banner_id }} .g-custom-banner-close:hover {
+    opacity: 1;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var banner = document.getElementById('{{ banner_id }}');
+    if (!banner) return;
+
+    // Target outer Gantry container (g-block or g-content)
+    var targetElement = banner.closest('.g-block') || banner.closest('.g-content') || banner;
+
+    // Apply inline style resets for browsers without :has support
+    if (targetElement !== banner) {
+        targetElement.style.margin = '0';
+        targetElement.style.padding = '0';
+        targetElement.style.position = 'relative';
+    }
+
+    var storageKey = banner.getAttribute('data-banner-id');
+    var isAutohide = banner.getAttribute('data-autohide') === 'true';
+
+    if (isAutohide && localStorage.getItem(storageKey) === 'true') {
+        targetElement.style.display = 'none';
+        return;
+    }
+
+    var closeBtn = banner.querySelector('.g-custom-banner-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+            targetElement.style.display = 'none';
+            if (isAutohide) {
+                localStorage.setItem(storageKey, 'true');
+            }
+        });
+    }
+});
+</script>
