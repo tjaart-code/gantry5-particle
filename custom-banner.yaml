@@ -1,0 +1,45 @@
+name: Custom Banner
+description: Custom alert banner with a close button.
+type: particle
+icon: fa-window-close
+
+configuration:
+  caching:
+    type: static
+
+form:
+  fields:
+    enabled:
+      type: input.checkbox
+      label: Enabled
+      default: 1
+
+    class:
+      type: input.selectize
+      label: CSS Classes
+      default: ''
+
+    title:
+      type: input.text
+      label: Title
+      default: Notice
+
+    content:
+      type: textarea.textarea
+      label: Content
+      default: This is a customizable banner message.
+
+    button_text:
+      type: input.text
+      label: Close Button Label
+      default: Close
+
+    autohide:
+      type: input.checkbox
+      label: Remember Closed State
+      default: 0
+
+    cookie_key:
+      type: input.text
+      label: Storage Key
+      default: gantry_banner_closed
